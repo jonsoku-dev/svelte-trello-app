@@ -49,3 +49,8 @@ npm i -D autoprefixer postcss
 
 # Fonts
 [google fonts](https://fonts.google.com/)
+
+# alias
+```shell
+npm i -D @rollup/plugin-alias
+```
