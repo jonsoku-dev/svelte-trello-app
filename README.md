@@ -23,7 +23,29 @@ npm i -D svelte@^3 @rollup/plugin-commonjs@^15 @rollup/plugin-node-resolve@^9
 ```
 
 # CSS
+## reset css
 [reset css](https://www.jsdelivr.com/package/npm/reset-css)
+## node-sass
+```shell
+npm i -D svelte-preprocess node-sass
+```
+## 공급업체 접두사 후처리 
+```shell
+npm i -D autoprefixer postcss
+```
+### package.json에 browserList 추가
+`> 1%` : 브라우저 점유율이 1%이상인 모든 브라우저
+
+`last 2 versions` : 지원하는 브라우저 버전 
+```json
+{
+  ...
+  "browserslist": [
+    "> 1%", 
+    "last 2 versions"
+  ]   
+}
+```
 
 # Fonts
 [google fonts](https://fonts.google.com/)
