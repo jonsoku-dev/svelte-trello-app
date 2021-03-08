@@ -70,9 +70,10 @@
     height: 100%;
     box-sizing: border-box;
     font-size: 16px;
-    white-space: normal;
     margin: 0 4px;
     line-height: 20px;
+    word-break: break-all;
+    white-space: normal;
 
     :global(&.sortable-ghost) {
       opacity: .2;
