@@ -1,6 +1,7 @@
 <script>
     import {lists} from '~/store/list'
     import {tick} from "svelte";
+    import {autoFocusout} from "~/actions/autoFocusout";
 
     let isEditMode = false
     let title = ''
@@ -29,17 +30,19 @@
 
 <div class="create-list">
     {#if isEditMode}
-        <div class="edit-mode">
-            <textarea
-                    bind:value={title}
-                    bind:this={textareaEl}
-                    placeholder="Enter a title for this list ..."
-                    on:keydown={event => {
-                        event.key === 'Enter' && addList()
-                        event.key==='Escape' && offEditMode()
-                        event.key==='Esc' && offEditMode()
-                    }}
-            ></textarea>
+        <div use:autoFocusout={offEditMode} class="edit-mode">
+            <label>
+                <textarea
+                        bind:value={title}
+                        bind:this={textareaEl}
+                        placeholder="Enter a title for this list ..."
+                        on:keydown={event => {
+                            event.key === 'Enter' && addList()
+                            event.key==='Escape' && offEditMode()
+                            event.key==='Esc' && offEditMode()
+                        }}
+                ></textarea>
+            </label>
             <div class="actions">
                 <div class="btn" on:click={addList}>
                     Add List
