@@ -11,5 +11,6 @@
     box-sizing: border-box;
     font-size: 16px;
     white-space: normal;
+    margin: 0 4px;
   }
 </style>
