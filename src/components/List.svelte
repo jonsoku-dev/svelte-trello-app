@@ -32,6 +32,7 @@
     font-size: 16px;
     white-space: normal;
     margin: 0 4px;
+    line-height: 20px;
 
     :global(&.sortable-ghost) {
       opacity: .2;
