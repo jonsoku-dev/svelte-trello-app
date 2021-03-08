@@ -2,6 +2,7 @@ import { writable } from 'svelte/store'
 import { v4 as uuidv4 } from 'uuid'
 import _find from 'lodash/find'
 import _remove from 'lodash/remove'
+import _cloneDeep from 'lodash/cloneDeep'
 
 const repoLists = JSON.parse(window.localStorage.getItem('lists')) || []
 
@@ -37,6 +38,15 @@ export const lists = {
     const { listId } = payload
     _lists.update(($lists) => {
       _remove($lists, { id: listId })
+      return $lists
+    })
+  },
+  reorder(payload) {
+    const { oldIndex, newIndex } = payload
+    _lists.update(($lists) => {
+      const clone = _cloneDeep($lists[oldIndex]) // 원래 위치의 데이터를 잠시 복사한다.
+      $lists.splice(oldIndex, 1) // 원래 위치의 데이터를 삭제한다.
+      $lists.splice(newIndex, 0, clone) // 새로운 위치에 복사한 데이터를 끼워넣는다.
       return $lists
     })
   },

@@ -17,10 +17,10 @@
             forceFallback: true,
             onEnd(event) {
                 console.log(event)
-                // lists.reorder({
-                //     oldIndex: event.oldIndex,
-                //     newIndex: event.newIndex,
-                // })
+                lists.reorder({
+                    oldIndex: event.oldIndex,
+                    newIndex: event.newIndex,
+                })
             }
         })
     })
