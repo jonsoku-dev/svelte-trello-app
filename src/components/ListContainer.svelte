@@ -2,10 +2,33 @@
     import {lists} from '~/store/list'
     import List from '~/components/List.svelte'
     import CreateList from '~/components/CreateList.svelte'
+    import Sortable from 'sortablejs'
+    import {onMount} from 'svelte'
+
+    let listsEl
+    let sortableLists
+
+    onMount(() => {
+        sortableLists = new Sortable(listsEl, {
+            group: 'My Lists',
+            handle: '.list',
+            delay: 50,
+            animation: 0,
+            forceFallback: true,
+            onEnd(event) {
+                console.log(event)
+                // lists.reorder({
+                //     oldIndex: event.oldIndex,
+                //     newIndex: event.newIndex,
+                // })
+            }
+        })
+    })
+
 </script>
 
 <div class="list-container">
-    <div class="lists">
+    <div class="lists" bind:this={listsEl}>
         {#each $lists as list (list.id)}
             <List {list}/>
         {/each}
