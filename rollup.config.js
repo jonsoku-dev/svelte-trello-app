@@ -53,14 +53,20 @@ export default {
         dev: !production,
       },
       preprocess: sveltePreprocess({
-        process: {
-          plugins: [require('autoprefixer')],
+        scss: {
+          // We can use a path relative to the root because
+          // svelte-preprocess automatically adds it to `includePaths`
+          // if none is defined.
+          prependData: `@import './src/scss/main.scss';`,
+        },
+        postcss: {
+          plugins: [require('autoprefixer')()],
         },
       }),
     }),
+    css({ output: 'bundle.css' }),
     // we'll extract any component CSS out into
     // a separate file - better for performance
-    css({ output: 'bundle.css' }),
     replace({
       values: {
         'crypto.randomBytes': 'require("randombytes")',
