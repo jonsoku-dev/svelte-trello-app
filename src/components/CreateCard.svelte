@@ -1,13 +1,14 @@
 <script>
     import {autoFocusout} from '~/actions/autoFocusout'
     import {cards} from '~/store/list'
-    import {tick} from "svelte";
+    import {tick, createEventDispatcher, onDestroy} from "svelte";
 
     export let listId
 
     let isEditMode = false
     let title = ""
     let textareaEl
+    const dispatch = createEventDispatcher()
 
     function addCard() {
         if (title.trim()) {
@@ -22,13 +23,19 @@
     async function onEditMode() {
         isEditMode = true
         title = ""
+        dispatch('editMode', true)
         await tick()
         textareaEl && textareaEl.focus()
     }
 
     function offEditMode() {
         isEditMode = false
+        dispatch('editMode', false)
     }
+
+    onDestroy(() => {
+        offEditMode()
+    })
 </script>
 
 {#if isEditMode}

@@ -13,6 +13,7 @@
                 title
             })
         }
+        title = ''
         offEditMode()
     }
 

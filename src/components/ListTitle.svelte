@@ -1,5 +1,5 @@
 <script>
-    import {tick} from "svelte";
+    import {tick, createEventDispatcher, onDestroy} from "svelte";
     import {autoFocusout} from '~/actions/autoFocusout'
     import {lists} from "~/store/list";
 
@@ -8,6 +8,7 @@
     let isEditMode = false
     let title = list.title
     let textareaEl
+    const dispatch = createEventDispatcher()
 
     function saveTitle() {
         if (title.trim()) {
@@ -23,18 +24,26 @@
         lists.remove({
             listId: list.id
         })
+        offEditMode() // dispatch 를 통해서 Sortable 이 가능하도록 해야한다. 그것이 offEditMode() 에 들어있기 때문
     }
 
     async function onEditMode() {
         isEditMode = true
         title = list.title
+        dispatch('editMode', true)
         await tick()
         textareaEl && textareaEl.focus()
     }
 
     function offEditMode() {
         isEditMode = false
+        dispatch('editMode', false)
     }
+
+    onDestroy(() => {
+        // 방어코드 !
+        offEditMode()
+    })
 </script>
 
 {#if isEditMode}

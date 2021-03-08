@@ -7,9 +7,21 @@
     import {cards} from "../store/list";
 
     export let list
+    export let sortableLists
 
     let cardsEl
     let sortableCards
+
+    function disableSortable(event) {
+        // 자식에서
+        // const dispatch = createEventDispatcher()
+        // ...
+        // dispatch('editMode', false)
+        // 두번째 인자는 disableSortable 의 첫번째 인자의 detail 에 들어온다.
+        // 즉, 여기서 event.detail 은 true/false 이다.
+        sortableLists.option('disabled', event.detail) // for lists
+        sortableCards.option('disabled', event.detail) // for lists
+    }
 
     onMount(() => {
         sortableCards = new Sortable(cardsEl, {
@@ -34,7 +46,7 @@
 <div class="list">
     <div class="list__inner">
         <div class="list__heading">
-            <ListTitle {list}/>
+            <ListTitle {list} on:editMode={disableSortable}/>
             <p>
                 {list.cards.length} cards
             </p>
@@ -44,10 +56,10 @@
                 bind:this={cardsEl}
                 class="list__cards">
             {#each list.cards as card (card.id)}
-                <Card {card} listId={list.id}/>
+                <Card {card} listId={list.id} on:editMode={disableSortable}/>
             {/each}
         </div>
-        <CreateCard listId={list.id}/>
+        <CreateCard listId={list.id} on:editMode={disableSortable}/>
     </div>
 </div>
 
