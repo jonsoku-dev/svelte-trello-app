@@ -2,8 +2,33 @@
     import CreateCard from '~/components/CreateCard.svelte'
     import ListTitle from "~/components/ListTitle.svelte";
     import Card from "~/components/Card.svelte";
+    import {onMount} from "svelte";
+    import Sortable from "sortablejs";
+    import {cards} from "../store/list";
 
     export let list
+
+    let cardsEl
+    let sortableCards
+
+    onMount(() => {
+        sortableCards = new Sortable(cardsEl, {
+            group: 'My cards',
+            handle: '.card',
+            delay: 50,
+            animation: 0,
+            forceFallback: true,
+            onEnd(event) {
+                console.log(event)
+                cards.reorder({
+                    fromListId: event.from.dataset.listId, // data-list-id={list.id} -> dataset.listId
+                    toListId: event.to.dataset.listId,
+                    oldIndex: event.oldIndex,
+                    newIndex: event.newIndex,
+                })
+            }
+        })
+    })
 </script>
 
 <div class="list">
@@ -14,7 +39,10 @@
                 {list.cards.length} cards
             </p>
         </div>
-        <div class="list__cards">
+        <div
+                data-list-id={list.id}
+                bind:this={cardsEl}
+                class="list__cards">
             {#each list.cards as card (card.id)}
                 <Card {card} listId={list.id}/>
             {/each}

@@ -82,4 +82,7 @@ export const cards = {
       return $lists
     })
   },
+  reorder(payload) {
+    const { listId, cardId, fromListId, toListId } = payload
+  },
 }
