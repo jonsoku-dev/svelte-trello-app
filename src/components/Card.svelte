@@ -1,19 +1,32 @@
 <script>
     import {autoFocusout} from '~/actions/autoFocusout'
     import {tick} from "svelte";
+    import {cards} from "../store/list";
 
     export let card
+    export let listId
 
     let isEditMode = false
     let title
     let textareaEl
 
     function saveCard() {
-
+        if (title.trim()) {
+            cards.edit({
+                listId,
+                cardId: card.id,
+                title
+            })
+        }
+        offEditMode()
     }
 
     function removeCard() {
-
+        cards.remove({
+            listId,
+            cardId: card.id
+        })
+        offEditMode()
     }
 
     async function onEditMode() {
