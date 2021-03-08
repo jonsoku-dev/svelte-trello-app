@@ -21,3 +21,9 @@ npx degit sveltejs/template svelte-trello-app
 ```shell
 npm i -D svelte@^3 @rollup/plugin-commonjs@^15 @rollup/plugin-node-resolve@^9
 ```
+
+# CSS
+[reset css](https://www.jsdelivr.com/package/npm/reset-css)
+
+# Fonts
+[google fonts](https://fonts.google.com/)
