@@ -83,6 +83,18 @@ export const cards = {
     })
   },
   reorder(payload) {
-    const { listId, cardId, fromListId, toListId } = payload
+    const { fromListId, toListId, oldIndex, newIndex } = payload
+    _lists.update(($lists) => {
+      const fromList = _find($lists, { id: fromListId })
+      // 같은 리스트에서 카드가 움직였을 때, fromListId == toListId 일테니까..
+      const toList =
+        fromListId === toListId ? fromList : _find($lists, { id: toListId })
+
+      const clone = _cloneDeep(fromList.cards[oldIndex])
+      fromList.cards.splice(oldIndex, 1)
+      toList.cards.splice(newIndex, 0, clone)
+
+      return $lists
+    })
   },
 }
