@@ -1,3 +1,11 @@
+<script>
+    import {lists} from '~/store/list'
+
+    lists.add({
+        title: 'Jonsoku!'
+    })
+</script>
+
 <div class="create-list">
     + Add another list
 </div>
@@ -16,6 +24,7 @@
     line-height: 20px;
     cursor: pointer;
     transition: .2s;
+
     &:hover {
       background: #ebecf0;
     }

@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store'
+import { v4 as uuidv4 } from 'uuid'
 
 const repoLists = JSON.parse(window.localStorage.getItem('lists')) || []
 
@@ -14,7 +15,7 @@ export const lists = {
     const { title } = payload
     _lists.update(($lists) => {
       $lists.push({
-        id: '',
+        id: uuidv4(),
         title,
         cards: [],
       })

@@ -5,6 +5,9 @@ import alias from '@rollup/plugin-alias'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import css from 'rollup-plugin-css-only'
+import globals from 'rollup-plugin-node-globals'
+import builtins from 'rollup-plugin-node-builtins'
+import replace from 'rollup-plugin-replace'
 import sveltePreprocess from 'svelte-preprocess'
 import path from 'path'
 
@@ -58,6 +61,11 @@ export default {
     // we'll extract any component CSS out into
     // a separate file - better for performance
     css({ output: 'bundle.css' }),
+    replace({
+      values: {
+        'crypto.randomBytes': 'require("randombytes")',
+      },
+    }),
 
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
@@ -69,7 +77,8 @@ export default {
       dedupe: ['svelte'],
     }),
     commonjs(),
-
+    globals(),
+    builtins(),
     alias({
       entries: [
         {
