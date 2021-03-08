@@ -19,7 +19,7 @@
                 <Card/>
             {/each}
         </div>
-        <CreateCard/>
+        <CreateCard listId={list.id}/>
     </div>
 </div>
 
@@ -37,6 +37,7 @@
     :global(&.sortable-ghost) {
       opacity: .2;
       position: relative;
+
       &::after {
         content: '';
         position: absolute;

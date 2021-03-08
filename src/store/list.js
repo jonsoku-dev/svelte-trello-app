@@ -51,3 +51,18 @@ export const lists = {
     })
   },
 }
+
+// 단지 하나의 객체 데이터.. (subscribe 메소드가 없으니까 !)
+export const cards = {
+  add(payload) {
+    const { listId, title } = payload
+    _lists.update(($lists) => {
+      const foundList = _find($lists, { id: listId })
+      foundList.cards.push({
+        id: uuidv4(),
+        title,
+      })
+      return $lists
+    })
+  },
+}

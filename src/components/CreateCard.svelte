@@ -1,12 +1,22 @@
 <script>
     import {autoFocusout} from '~/actions/autoFocusout'
+    import {cards} from '~/store/list'
     import {tick} from "svelte";
+
+    export let listId
 
     let isEditMode = false
     let title = ""
     let textareaEl
 
     function addCard() {
+        if (title.trim()) {
+            cards.add({
+                listId,
+                title
+            })
+        }
+        offEditMode()
     }
 
     async function onEditMode() {
@@ -30,9 +40,9 @@
                 bind:this={textareaEl}
                 placeholder="Enter a title for this card..."
                 on:keydown={event => {
-                event.key = "Enter" && addCard()
-                event.key = "Escape" && offEditMode()
-                event.key = "Esc" && offEditMode()
+                event.key === 'Enter' && addCard()
+                event.key === 'Escape' && offEditMode()
+                event.key === 'Esc' && offEditMode()
             }}
         ></textarea>
         <div class="actions">
