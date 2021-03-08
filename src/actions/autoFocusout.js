@@ -19,5 +19,7 @@ export function autoFocusout(el, focusoutListener) {
       el.removeEventListener('click', focusinListener)
       window.removeEventListener('click', focusoutListener)
     },
+    edit(listId, title) {},
+    remove(listId) {},
   }
 }
