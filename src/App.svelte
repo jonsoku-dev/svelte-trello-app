@@ -1,30 +1,60 @@
-<script>
-	export let name;
-</script>
-
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<div class="list-container">
+    <div class="lists">
+        <div class="list">1</div>
+        <div class="list">2</div>
+        <div class="list">3</div>
+        <div class="list">3</div>
+        <div class="list">3</div>
+        <div class="list">3</div>
+        <div class="list">3</div>
+        <div class="list">3</div>
+    </div>
+    <div class="create-list"></div>
+</div>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+    :global(body) {
+        margin: 0;
+        padding: 0;
+    }
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
+    .list-container {
+        width: 100vw;
+        height: 100vh;
+        border: 8px solid red;
+        box-sizing: border-box;
+        overflow-x: auto;
+        overflow-y: hidden;
+        font-size: 0;
+        padding: 30px;
+        white-space: nowrap;
+    }
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+    .list-container .lists {
+        display: inline-block;
+        height: 100%;
+        border: 10px solid blue;
+        box-sizing: border-box;
+        font-size: 0;
+        white-space: nowrap;
+    }
+
+    .list-container .lists .list{
+        display: inline-block;
+        width: 300px;
+        height: 100%;
+        border: 10px solid yellowgreen;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    .list-container .create-list {
+        display: inline-block;
+        width: 300px;
+        height: 50px;
+        border: 10px solid yellowgreen;
+        box-sizing: border-box;
+        font-size: 16px;
+        vertical-align: top;
+    }
 </style>
